@@ -16,8 +16,8 @@
   <dependencies>
     <dependency>
       <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.4.6-R0.3</version>
+      <artifactId>craftbukkit</artifactId>
+      <version>1.4.7-R0.2-SNAPSHOT</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
