@@ -4,6 +4,7 @@ package com.dinnerbone.bukkit.sample;
 import java.util.HashMap;
 
 import net.minecraft.server.v1_4_R1.IDispenseBehavior;
+import net.minecraft.server.v1_4_R1.IInventory;
 import net.minecraft.server.v1_4_R1.IRecipe;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -35,9 +36,10 @@ public class SamplePlugin extends JavaPlugin {
         // TODO: Place any custom enable code here including the registration of any events
 
         getLogger().info("creating class inheriting from NMS...");
-        IRecipe iRecipe = new SamplePluginNMSInheritor();
-        getLogger().info("iRecipe = "+iRecipe);
-        iRecipe.
+        IInventory iInventory = new SamplePluginNMSInheritor();
+        getLogger().info("iInventory= "+iInventory);
+        // if subclass/implementator not remapped: java.lang.AbstractMethodError: SamplePluginNMSInheritor.k_()I
+        getLogger().info("getSize="+iInventory.getSize());
 
         // Register our events
         PluginManager pm = getServer().getPluginManager();
