@@ -27,15 +27,12 @@ public class SamplePosCommand implements CommandExecutor {
         player.sendMessage("getting CraftWorld");
         CraftWorld craftWorld = (CraftWorld)world;
         player.sendMessage("getting handle");
-        net.minecraft.server.v1_4_R1.World nmsWorld = craftWorld.getHandle();
+        net.minecraft.server.v1_4_R1.WorldServer worldServer = craftWorld.getHandle();
         player.sendMessage("calling getTileEntity on nms World");
-        nmsWorld.getTileEntity(location.getBlockX(), location.getBlockY(), location.getBlockZ());
-        player.sendMessage("success");
-
         // this breaks - Caused by: java.lang.NoSuchMethodError: in.getTileEntity(III)Lany;
-        Location position = location;
-        ((CraftWorld)world).getHandle().getTileEntity(position.getBlockX(), position.getBlockY(), position.getBlockZ());
-        player.sendMessage("success 2");
+        // because WorldServer inherits from World, but isn't in mc-dev to obf mappings (since is added by CB)
+        worldServer.getTileEntity(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        player.sendMessage("success");
 
         if (split.length == 0) {
             player.sendMessage("You are currently at " + location.getX() +"," + location.getY() + "," + location.getZ() +
