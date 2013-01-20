@@ -2,6 +2,8 @@
 package com.dinnerbone.bukkit.sample;
 
 import java.util.HashMap;
+
+import net.minecraft.server.v1_4_R1.IDispenseBehavior;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -30,6 +32,10 @@ public class SamplePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
+
+        getLogger().info("creating class inheriting from NMS...");
+        IDispenseBehavior iDispenseBehavior = new SamplePluginNMSInheritor();
+        getLogger().info("iDispenseBehavior = "+iDispenseBehavior);
 
         // Register our events
         PluginManager pm = getServer().getPluginManager();
