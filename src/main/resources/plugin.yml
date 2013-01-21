@@ -1,5 +1,5 @@
 name: Sample Plugin
-main: com.dinnerbone.bukkit.sample.SamplePlugin
+main: agaricus.plugins.IncompatiblePlugin.SamplePlugin
 version: ${version}
 commands:
   pos:

@@ -1,11 +1,9 @@
 
-package com.dinnerbone.bukkit.sample;
+package agaricus.plugins.IncompatiblePlugin;
 
 import java.util.HashMap;
 
-import net.minecraft.server.v1_4_R1.IDispenseBehavior;
 import net.minecraft.server.v1_4_R1.IInventory;
-import net.minecraft.server.v1_4_R1.IRecipe;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;

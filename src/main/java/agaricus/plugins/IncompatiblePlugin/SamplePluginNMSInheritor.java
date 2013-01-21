@@ -1,4 +1,4 @@
-package com.dinnerbone.bukkit.sample;
+package agaricus.plugins.IncompatiblePlugin;
 
 import net.minecraft.server.v1_4_R1.*;
 import org.bukkit.craftbukkit.v1_4_R1.entity.CraftHumanEntity;

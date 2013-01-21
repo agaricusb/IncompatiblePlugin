@@ -1,5 +1,5 @@
 
-package com.dinnerbone.bukkit.sample;
+package agaricus.plugins.IncompatiblePlugin;
 
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;

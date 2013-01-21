@@ -1,4 +1,4 @@
-package com.dinnerbone.bukkit.sample;
+package agaricus.plugins.IncompatiblePlugin;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

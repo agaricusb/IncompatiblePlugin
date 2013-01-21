@@ -1,5 +1,5 @@
 
-package com.dinnerbone.bukkit.sample;
+package agaricus.plugins.IncompatiblePlugin;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
