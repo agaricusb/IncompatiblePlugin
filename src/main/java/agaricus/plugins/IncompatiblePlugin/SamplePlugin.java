@@ -4,6 +4,9 @@ package agaricus.plugins.IncompatiblePlugin;
 import java.util.HashMap;
 
 import net.minecraft.server.v1_4_R1.IInventory;
+import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -32,6 +35,16 @@ public class SamplePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
+
+        Block b = Bukkit.getServer().getWorlds().get(0).getBlockAt(0, 100, 0);
+        System.out.println("a="+((CraftChunk)b.getChunk()).getHandle().a(b.getX() & 15, b.getY(), b.getZ() & 15, 48, 0));
+
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            public void run() {
+                Block b = Bukkit.getServer().getWorlds().get(0).getBlockAt(0, 99, 0);
+                System.out.println("a(task)="+((CraftChunk)b.getChunk()).getHandle().a(b.getX() & 15, b.getY(), b.getZ() & 15, 48, 0));
+            }
+        });
 
         getLogger().info("creating class inheriting from NMS...");
         IInventory iInventory = new SamplePluginNMSInheritor();
