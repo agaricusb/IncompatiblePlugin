@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import net.minecraft.server.v1_4_R1.IInventory;
 import net.minecraft.server.v1_4_R1.MinecraftServer;
+import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
@@ -43,7 +44,10 @@ public class SamplePlugin extends JavaPlugin {
 
         // test un-renamed map
         System.out.println("net.minecraft.server.v1_4_R1.MinecraftServer.currentTick = "+MinecraftServer.currentTick);
-        
+
+        // test bouncycastle is available
+        System.out.println("bouncycastle="+net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers.class);
+
         try {
             System.out.println("codeSource URI="+getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
             System.out.println(" file = ="+new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
