@@ -4,6 +4,7 @@ package agaricus.plugins.IncompatiblePlugin;
 import java.util.HashMap;
 
 import net.minecraft.server.v1_4_R1.IInventory;
+import net.minecraft.server.v1_4_R1.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
@@ -39,6 +40,9 @@ public class SamplePlugin extends JavaPlugin {
         // TODO: Place any custom enable code here including the registration of any events
 
         System.out.println("IncompatiblePlugin");
+
+        // test un-renamed map
+        System.out.println("net.minecraft.server.v1_4_R1.MinecraftServer.currentTick = "+MinecraftServer.currentTick);
         
         try {
             System.out.println("codeSource URI="+getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -49,7 +53,6 @@ public class SamplePlugin extends JavaPlugin {
             t.printStackTrace();
         }
 
-/*
         System.out.println("SNOW.id="+net.minecraft.server.v1_4_R1.Block.SNOW.id);
 
    
@@ -70,7 +73,6 @@ public class SamplePlugin extends JavaPlugin {
         getLogger().info("iInventory= "+iInventory);
         // if subclass/implementator not remapped: java.lang.AbstractMethodError: SamplePluginNMSInheritor.k_()I
         getLogger().info("getSize="+iInventory.getSize());
-        */
 
         // Register our events
         PluginManager pm = getServer().getPluginManager();
