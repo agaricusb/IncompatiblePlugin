@@ -9,7 +9,12 @@ import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.RecipeIterator;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.FurnaceRecipe;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +46,20 @@ public class SamplePlugin extends JavaPlugin {
         // TODO: Place any custom enable code here including the registration of any events
 
         System.out.println("IncompatiblePlugin");
+
+        System.out.println("recipe iterator..");
+        RecipeIterator recipeIterator = new RecipeIterator();
+        int nulls = 0, nonVanillaRecipes = 0;
+        while(recipeIterator.hasNext()) {
+            Recipe recipe = recipeIterator.next();
+            if (recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe || recipe instanceof FurnaceRecipe) continue; // skip vanilla
+            if (recipe == null) {
+                nulls += 1;
+            }
+            nonVanillaRecipes += 1;
+        }
+        System.out.println("null recipes? " + nulls + ", non-vanilla=" + nonVanillaRecipes);
+
 
         // test un-renamed map
         System.out.println("net.minecraft.server.v1_4_R1.MinecraftServer.currentTick = "+MinecraftServer.currentTick);
