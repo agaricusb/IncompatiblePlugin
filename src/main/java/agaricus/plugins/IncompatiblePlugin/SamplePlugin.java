@@ -7,8 +7,11 @@ import net.minecraft.server.v1_4_R1.IInventory;
 import net.minecraft.server.v1_4_R1.MinecraftServer;
 import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
+import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.inventory.RecipeIterator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.FurnaceRecipe;
@@ -90,7 +93,15 @@ public class SamplePlugin extends JavaPlugin {
             }
         });
 
-        // test inheritance remapping
+        // test nms inheritance remapping
+        net.minecraft.server.v1_4_R1.WorldServer worldServer = ((CraftWorld)Bukkit.getServer().getWorlds().get(0)).getHandle();
+        System.out.println("calling getTileEntity on nms World");
+        // if this breaks - Caused by: java.lang.NoSuchMethodError: in.getTileEntity(III)Lany;
+        // because WorldServer inherits from World, but isn't in mc-dev to obf mappings (since is added by CB)
+        worldServer.getTileEntity(0, 0, 0);
+        System.out.println("nms inheritance successful");
+
+        // test plugin inheritance remapping
         getLogger().info("creating class inheriting from NMS...");
         IInventory iInventory = new SamplePluginNMSInheritor();
         getLogger().info("iInventory= "+iInventory);
