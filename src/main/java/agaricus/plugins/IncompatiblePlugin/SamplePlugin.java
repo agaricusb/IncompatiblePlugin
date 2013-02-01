@@ -4,6 +4,7 @@ package agaricus.plugins.IncompatiblePlugin;
 import java.util.HashMap;
 
 import net.minecraft.server.v1_4_R1.IInventory;
+import net.minecraft.server.v1_4_R1.Item;
 import net.minecraft.server.v1_4_R1.MinecraftServer;
 import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.Bukkit;
@@ -50,6 +51,15 @@ public class SamplePlugin extends JavaPlugin {
 
         System.out.println("IncompatiblePlugin");
 
+        // null Material test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/172
+        for (int i = 0; i < Item.byId.length; i++) {
+            if (Item.byId[i] == null && net.minecraft.server.v1_4_R1.Block.byId[i] == null) continue;
+            if (org.bukkit.Material.getMaterial(i) == null) {
+                System.out.println("Item "+i+" = item="+Item.byId[i]+", block="+(i<4096?net.minecraft.server.v1_4_R1.Block.byId[i]:"n/a")+", bukkit Material="+org.bukkit.Material.getMaterial(i));
+            }
+        }
+
+        // null recipe output test for https://github.com/MinecraftPortCentral/MCPC-Plus/issues/139
         System.out.println("recipe iterator..");
         RecipeIterator recipeIterator = new RecipeIterator();
         int nulls = 0, nonVanillaRecipes = 0;
