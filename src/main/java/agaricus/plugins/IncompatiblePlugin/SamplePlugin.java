@@ -53,11 +53,11 @@ public class SamplePlugin extends JavaPlugin {
 
         // null Material test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/172
         for (int i = 0; i < Item.byId.length; i++) {
-            String nmsItem = ""+Item.byId[i];
-            String nmsBlock = i < 4096 ? ""+net.minecraft.server.v1_4_R1.Block.byId[i] : "n/a";
+            Item nmsItem = Item.byId[i];
+            net.minecraft.server.v1_4_R1.Block nmsBlock = i < 4096 ? net.minecraft.server.v1_4_R1.Block.byId[i] : null;
             org.bukkit.Material bukkitMaterial = org.bukkit.Material.getMaterial(i);
 
-            if (nmsItem.equalsIgnoreCase("null") && nmsBlock.equalsIgnoreCase("null")) continue;
+            if (nmsItem == null && nmsBlock == null && bukkitMaterial == null) continue; // must not exist
 
             System.out.println("Item "+i+" = item="+nmsItem+", block="+nmsBlock+", bukkit Material="+bukkitMaterial);
         }
