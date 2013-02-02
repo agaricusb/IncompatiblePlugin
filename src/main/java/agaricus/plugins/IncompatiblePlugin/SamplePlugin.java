@@ -51,6 +51,18 @@ public class SamplePlugin extends JavaPlugin {
 
         System.out.println("IncompatiblePlugin");
 
+        // method naming conflict test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/169
+        net.minecraft.server.v1_4_R1.PlayerConnection playerConnection = null;
+        try {
+            System.out.println("getPlayer = "+playerConnection.getPlayer());
+        } catch (NoSuchMethodError ex) {
+            System.out.println("failed to call playerConnection.getPlayer()");
+            ex.printStackTrace();
+        } catch (NullPointerException ex) {
+            System.out.println("playerConnection.getPlayer successful");
+        }
+
+
         // null Material test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/172
         for (int i = 0; i < Item.byId.length; i++) {
             Item nmsItem = Item.byId[i];
@@ -59,6 +71,7 @@ public class SamplePlugin extends JavaPlugin {
 
             if (nmsItem == null && nmsBlock == null && bukkitMaterial == null) continue; // must not exist
 
+            if (bukkitMaterial == null)
             System.out.println("Item "+i+" = item="+nmsItem+", block="+nmsBlock+", bukkit Material="+bukkitMaterial);
         }
 
