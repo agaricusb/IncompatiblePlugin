@@ -53,10 +53,13 @@ public class SamplePlugin extends JavaPlugin {
 
         // null Material test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/172
         for (int i = 0; i < Item.byId.length; i++) {
-            if (Item.byId[i] == null && net.minecraft.server.v1_4_R1.Block.byId[i] == null) continue;
-            if (org.bukkit.Material.getMaterial(i) == null) {
-                System.out.println("Item "+i+" = item="+Item.byId[i]+", block="+(i<4096?net.minecraft.server.v1_4_R1.Block.byId[i]:"n/a")+", bukkit Material="+org.bukkit.Material.getMaterial(i));
-            }
+            String nmsItem = ""+Item.byId[i];
+            String nmsBlock = i < 4096 ? ""+net.minecraft.server.v1_4_R1.Block.byId[i] : "n/a";
+            org.bukkit.Material bukkitMaterial = org.bukkit.Material.getMaterial(i);
+
+            if (nmsItem.equalsIgnoreCase("null") && nmsBlock.equalsIgnoreCase("null")) continue;
+
+            System.out.println("Item "+i+" = item="+nmsItem+", block="+nmsBlock+", bukkit Material="+bukkitMaterial);
         }
 
         // null recipe output test for https://github.com/MinecraftPortCentral/MCPC-Plus/issues/139
