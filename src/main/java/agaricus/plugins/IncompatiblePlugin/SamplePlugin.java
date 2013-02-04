@@ -1,8 +1,10 @@
 
 package agaricus.plugins.IncompatiblePlugin;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 
+import net.minecraft.server.v1_4_R1.EntityTypes;
 import net.minecraft.server.v1_4_R1.IInventory;
 import net.minecraft.server.v1_4_R1.Item;
 import net.minecraft.server.v1_4_R1.MinecraftServer;
@@ -14,6 +16,7 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.inventory.RecipeIterator;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.Recipe;
@@ -24,6 +27,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Sample plugin for Bukkit
@@ -50,6 +56,29 @@ public class SamplePlugin extends JavaPlugin {
         // TODO: Place any custom enable code here including the registration of any events
 
         System.out.println("IncompatiblePlugin");
+
+        // null EntityType test - Bukkit wrappers for mobs https://github.com/MinecraftPortCentral/MCPC-Plus/issues/16
+        // see https://github.com/xGhOsTkiLLeRx/SilkSpawners/blob/master/src/main/java/de/dustplanet/silkspawners/SilkSpawners.java#L157
+        try {
+            // https://github.com/Bukkit/mc-dev/blob/master/net/minecraft/server/EntityTypes.java#L21
+            // f.put(s, Integer.valueOf(i)); --> Name of ID
+            Field field = EntityTypes.class.getDeclaredField("f");
+            field.setAccessible(true);
+            Map<String, Integer> map = (Map<String, Integer>) field.get(null);
+            for (Map.Entry<String,Integer> entry: ((Map<String,Integer>)map).entrySet()) {
+                String mobID = entry.getKey();
+                int entityID = entry.getValue();
+                EntityType bukkitEntityType = EntityType.fromId(entityID);
+
+                if (bukkitEntityType == null) {
+                    System.out.println("Missing EntityType for entityID="+entityID+", mobID="+mobID);
+                }
+            }
+        } catch (Exception e) {
+            Bukkit.getServer().getLogger().severe("Failed to dump entity map: " + e);
+            e.printStackTrace();
+        }
+
 
         // method naming conflict test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/169
         net.minecraft.server.v1_4_R1.PlayerConnection playerConnection = null;
@@ -117,7 +146,7 @@ public class SamplePlugin extends JavaPlugin {
                 Block b = Bukkit.getServer().getWorlds().get(0).getBlockAt(0, 99, 0);
                 System.out.println("a(task)="+((CraftChunk)b.getChunk()).getHandle().a(b.getX() & 15, b.getY(), b.getZ() & 15, 48, 0));
             }
-        });
+        }, 100);
 
         // test nms inheritance remapping
         net.minecraft.server.v1_4_R1.WorldServer worldServer = ((CraftWorld)Bukkit.getServer().getWorlds().get(0)).getHandle();
