@@ -4,6 +4,7 @@ package agaricus.plugins.IncompatiblePlugin;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -17,6 +18,11 @@ public class SamplePlayerListener implements Listener {
 
     public SamplePlayerListener(SamplePlugin instance) {
         plugin = instance;
+    }
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+        plugin.getLogger().info("entity death event: " + event + " entity="+event.getEntity() + ", drops="+event.getDrops());
     }
 
     @EventHandler
