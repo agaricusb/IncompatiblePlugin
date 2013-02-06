@@ -51,30 +51,11 @@ public class SamplePlugin extends JavaPlugin {
         getLogger().info("Goodbye world!");
     }
 
-    private class TestClass {
-        int answer;
-        Material material;
-
-        public String toString() {
-            return "<TestClass answer="+answer+" material="+material+">";
-        }
-    }
-
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
 
         System.out.println("IncompatiblePlugin");
-
-        // gson library https://github.com/MinecraftPortCentral/MCPC-Plus/issues/64
-        GsonBuilder gsonBuilder = new GsonBuilder().
-                setPrettyPrinting().
-                disableHtmlEscaping().
-                serializeNulls().
-                excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE);
-        Gson gson = gsonBuilder.create(); // as in https://github.com/MassiveCraft/Factions/blob/master/src/com/massivecraft/factions/zcore/MPlugin.java#L61
-        // https://github.com/MassiveCraft/Factions/blob/master/src/com/massivecraft/factions/zcore/util/Persist.java#L141
-        System.out.println("fromJson = "+gson.fromJson("{\"answer\": 42}", TestClass.class));
 
         // reflection remapping https://github.com/MinecraftPortCentral/MCPC-Plus/issues/13
         try {
