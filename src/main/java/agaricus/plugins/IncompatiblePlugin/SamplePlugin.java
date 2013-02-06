@@ -2,17 +2,17 @@
 package agaricus.plugins.IncompatiblePlugin;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-import net.minecraft.server.v1_4_R1.EntityTypes;
-import net.minecraft.server.v1_4_R1.IInventory;
-import net.minecraft.server.v1_4_R1.Item;
-import net.minecraft.server.v1_4_R1.MinecraftServer;
+import net.minecraft.server.v1_4_R1.*;
 import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
+import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
 import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
 import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_4_R1.inventory.RecipeIterator;
@@ -51,11 +51,38 @@ public class SamplePlugin extends JavaPlugin {
         getLogger().info("Goodbye world!");
     }
 
+    private class TestClass {
+        int answer;
+        Material material;
+
+        public String toString() {
+            return "<TestClass answer="+answer+" material="+material+">";
+        }
+    }
+
     @Override
     public void onEnable() {
         // TODO: Place any custom enable code here including the registration of any events
 
         System.out.println("IncompatiblePlugin");
+
+        // gson library https://github.com/MinecraftPortCentral/MCPC-Plus/issues/64
+        GsonBuilder gsonBuilder = new GsonBuilder().
+                setPrettyPrinting().
+                disableHtmlEscaping().
+                serializeNulls().
+                excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE);
+        Gson gson = gsonBuilder.create(); // as in https://github.com/MassiveCraft/Factions/blob/master/src/com/massivecraft/factions/zcore/MPlugin.java#L61
+        // https://github.com/MassiveCraft/Factions/blob/master/src/com/massivecraft/factions/zcore/util/Persist.java#L141
+        System.out.println("fromJson = "+gson.fromJson("{\"answer\": 42}", TestClass.class));
+
+        // reflection remapping https://github.com/MinecraftPortCentral/MCPC-Plus/issues/13
+        try {
+            Field field = TileEntityMobSpawner.class.getDeclaredField("mobName");
+            System.out.println("field="+field);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         // null EntityType test - Bukkit wrappers for mobs https://github.com/MinecraftPortCentral/MCPC-Plus/issues/16
         // see https://github.com/xGhOsTkiLLeRx/SilkSpawners/blob/master/src/main/java/de/dustplanet/silkspawners/SilkSpawners.java#L157
@@ -65,7 +92,7 @@ public class SamplePlugin extends JavaPlugin {
             Field field = EntityTypes.class.getDeclaredField("f");
             field.setAccessible(true);
             Map<String, Integer> map = (Map<String, Integer>) field.get(null);
-            for (Map.Entry<String,Integer> entry: ((Map<String,Integer>)map).entrySet()) {
+            for (Map.Entry<String,Integer> entry: map.entrySet()) {
                 String mobID = entry.getKey();
                 int entityID = entry.getValue();
                 EntityType bukkitEntityType = EntityType.fromId(entityID);
@@ -146,7 +173,7 @@ public class SamplePlugin extends JavaPlugin {
                 Block b = Bukkit.getServer().getWorlds().get(0).getBlockAt(0, 99, 0);
                 System.out.println("a(task)="+((CraftChunk)b.getChunk()).getHandle().a(b.getX() & 15, b.getY(), b.getZ() & 15, 48, 0));
             }
-        }, 100);
+        }, 0);
 
         // test nms inheritance remapping
         net.minecraft.server.v1_4_R1.WorldServer worldServer = ((CraftWorld)Bukkit.getServer().getWorlds().get(0)).getHandle();
