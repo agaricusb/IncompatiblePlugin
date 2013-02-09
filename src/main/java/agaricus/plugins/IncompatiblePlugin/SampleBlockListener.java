@@ -8,12 +8,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 /**
  * Sample block listener
  * @author Dinnerbone
  */
 public class SampleBlockListener implements Listener {
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        System.out.println("onBlockPlaceEvent "+event+", block="+event.getBlock());
+    }
+
     @EventHandler
     public void onBlockPhysics(BlockPhysicsEvent event) {
         Block block = event.getBlock();
