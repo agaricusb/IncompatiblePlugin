@@ -57,6 +57,16 @@ public class SamplePlugin extends JavaPlugin {
 
         System.out.println("IncompatiblePlugin");
 
+        // from sqlite NestedDB.java:63 _open https://github.com/MinecraftPortCentral/MCPC-Plus/issues/218
+        System.out.println("forName SQLite");
+        try {
+            Object sqlite = Class.forName("org.sqlite.SQLite").newInstance();
+            System.out.println("org.sqlite.SQLite newInstance="+sqlite);
+        } catch (Throwable t) {
+            System.out.println("t="+t);
+            t.printStackTrace();
+        }
+
         // recipe sorting error - java.lang.IllegalArgumentException: Comparison method violates its general contract!
         // https://github.com/MinecraftPortCentral/MCPC-Plus/issues/238
         ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new org.bukkit.inventory.ItemStack(Material.DIAMOND));
