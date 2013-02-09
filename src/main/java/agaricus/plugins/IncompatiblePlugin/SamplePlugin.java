@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 import net.minecraft.server.v1_4_R1.*;
 import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.*;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
@@ -56,6 +56,12 @@ public class SamplePlugin extends JavaPlugin {
         // TODO: Place any custom enable code here including the registration of any events
 
         System.out.println("IncompatiblePlugin");
+
+        // recipe sorting error - java.lang.IllegalArgumentException: Comparison method violates its general contract!
+        // https://github.com/MinecraftPortCentral/MCPC-Plus/issues/238
+        ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new org.bukkit.inventory.ItemStack(Material.DIAMOND));
+        shapelessRecipe.addIngredient(Material.DIRT);
+        org.bukkit.Bukkit.addRecipe(shapelessRecipe);
 
         // reflection remapping https://github.com/MinecraftPortCentral/MCPC-Plus/issues/13
         try {
