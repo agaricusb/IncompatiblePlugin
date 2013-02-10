@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 
 /**
  * Sample block listener
@@ -16,8 +17,13 @@ import org.bukkit.event.block.BlockPlaceEvent;
  */
 public class SampleBlockListener implements Listener {
     @EventHandler
+    public void onCraftItem(CraftItemEvent event) {
+        System.out.println("CraftItemEvent "+event+", inventory="+event.getInventory()+", recipe="+event.getRecipe());
+    }
+
+    @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        System.out.println("onBlockPlaceEvent "+event+", block="+event.getBlock());
+        System.out.println("BlockPlaceEvent "+event+", block="+event.getBlock());
     }
 
     @EventHandler
