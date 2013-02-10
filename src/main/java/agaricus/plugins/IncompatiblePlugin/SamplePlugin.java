@@ -95,7 +95,12 @@ public class SamplePlugin extends JavaPlugin {
                 EntityType bukkitEntityType = EntityType.fromId(entityID);
 
                 if (bukkitEntityType == null) {
-                    System.out.println("Missing EntityType for entityID="+entityID+", mobID="+mobID);
+                    System.out.println("Missing Bukkit EntityType for entityID="+entityID+", mobID="+mobID);
+                } else {
+                    Class bukkitEntityClass = bukkitEntityType.getEntityClass();
+                    if (bukkitEntityClass == null) {
+                        System.out.println("Missing Bukkit getEntityClass() for entityID="+entityID+", mobID="+mobID+", bukkitEntityType="+bukkitEntityType);
+                    }
                 }
             }
         } catch (Exception e) {
