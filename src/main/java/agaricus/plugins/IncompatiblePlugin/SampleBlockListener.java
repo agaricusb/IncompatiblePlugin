@@ -6,6 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -23,7 +24,18 @@ public class SampleBlockListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        System.out.println("BlockPlaceEvent "+event+", block="+event.getBlock());
+        System.out.println("BlockPlaceEvent "+event+", player="+event.getPlayer()+", blockPlaced="+event.getBlockPlaced()+", replacedBlockState="+event.getBlockReplacedState()+", against="+event.getBlockAgainst()+", hand="+event.getItemInHand());
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        System.out.println("BlockBreakEvent "+event+", block="+event.getBlock());
+        if (event.getBlock().getType() == Material.MOSSY_COBBLESTONE)
+        {
+            System.out.println("cancelling");
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
