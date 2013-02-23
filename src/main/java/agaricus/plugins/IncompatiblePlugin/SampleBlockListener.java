@@ -25,12 +25,12 @@ public class SampleBlockListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         System.out.println("BlockPlaceEvent "+event+", player="+event.getPlayer()+", blockPlaced="+event.getBlockPlaced()+", replacedBlockState="+event.getBlockReplacedState()+", against="+event.getBlockAgainst()+", hand="+event.getItemInHand());
-        event.setCancelled(true);
+        //event.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        System.out.println("BlockBreakEvent "+event+", block="+event.getBlock());
+        System.out.println("BlockBreakEvent "+event+", block="+event.getBlock()+", player="+event.getPlayer());
         if (event.getBlock().getType() == Material.MOSSY_COBBLESTONE)
         {
             System.out.println("cancelling");
