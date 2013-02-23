@@ -5,11 +5,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
+import com.google.common.io.CharStreams;
 import net.minecraft.server.v1_4_R1.*;
 import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
@@ -25,6 +27,7 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import sun.misc.IOUtils;
 
 import java.io.*;
 import java.util.Map;
@@ -57,7 +60,31 @@ public class SamplePlugin extends JavaPlugin {
 
         System.out.println("IncompatiblePlugin");
 
+        // show enums for https://github.com/MinecraftPortCentral/MCPC-Plus/issues/417
+        StringBuffer sb = new StringBuffer();
+        for (Biome biome : Biome.values()) {
+            sb.append(biome.ordinal()+"="+biome.toString()+"("+biome.name()+") ");
+        }
+        System.out.println("Biome ("+Biome.values().length+"): " + sb.toString());
+
+        sb = new StringBuffer();
+        for (EntityType entityType : EntityType.values()) {
+            sb.append(entityType.ordinal()+"="+entityType.toString()+"("+entityType.name()+") ");
+        }
+        System.out.println("EntityType ("+EntityType.values().length+"): " + sb.toString());
+
+        // demonstrate https://github.com/MinecraftPortCentral/MCPC-Plus/issues/75
+        try {
+            System.out.println("codeSource URI="+getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+            System.out.println(" file = ="+new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
+            System.out.println("new canonical file = ="+(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI())).getCanonicalFile());
+        } catch (Throwable t) {
+            System.out.println("codeSource URI exception="+t);
+            t.printStackTrace();
+        }
+
         // from sqlite NestedDB.java:63 _open https://github.com/MinecraftPortCentral/MCPC-Plus/issues/218
+        // make sure we don't break SQLite by ASM choking on its excessive classfile size
         System.out.println("forName SQLite");
         try {
             Object sqlite = Class.forName("org.sqlite.SQLite").newInstance();
@@ -154,14 +181,7 @@ public class SamplePlugin extends JavaPlugin {
         // test bouncycastle is available
         System.out.println("bouncycastle="+net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers.class);
 
-        try {
-            System.out.println("codeSource URI="+getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
-            System.out.println(" file = ="+new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()));
-            System.out.println("new canonical file = ="+(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI())).getCanonicalFile());
-        } catch (Throwable t) {
-            System.out.println("codeSource URI exception="+t);
-            t.printStackTrace();
-        }
+
 
         System.out.println("SNOW.id="+net.minecraft.server.v1_4_R1.Block.SNOW.id);
 
