@@ -1,4 +1,4 @@
-name: Sample Plugin
+name: IncompatiblePlugin
 main: agaricus.plugins.IncompatiblePlugin.SamplePlugin
 version: ${version}
 commands:
