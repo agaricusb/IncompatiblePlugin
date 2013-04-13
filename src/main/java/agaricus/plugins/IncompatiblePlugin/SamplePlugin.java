@@ -6,8 +6,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 import com.google.common.io.CharStreams;
-import net.minecraft.server.v1_4_R1.*;
-import net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
+import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.v1_5_R2.org.bouncycastle.asn1.bc.BCObjectIdentifiers;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -15,9 +15,9 @@ import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.craftbukkit.libs.com.google.gson.GsonBuilder;
-import org.bukkit.craftbukkit.v1_4_R1.CraftChunk;
-import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_4_R1.inventory.RecipeIterator;
+import org.bukkit.craftbukkit.v1_5_R2.CraftChunk;
+import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R2.inventory.RecipeIterator;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.FurnaceRecipe;
@@ -137,7 +137,7 @@ public class SamplePlugin extends JavaPlugin {
 
 
         // method naming conflict test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/169
-        net.minecraft.server.v1_4_R1.PlayerConnection playerConnection = null;
+        net.minecraft.server.v1_5_R2.PlayerConnection playerConnection = null;
         try {
             System.out.println("getPlayer = "+playerConnection.getPlayer());
         } catch (NoSuchMethodError ex) {
@@ -151,7 +151,7 @@ public class SamplePlugin extends JavaPlugin {
         // null Material test https://github.com/MinecraftPortCentral/MCPC-Plus/issues/172
         for (int i = 0; i < Item.byId.length; i++) {
             Item nmsItem = Item.byId[i];
-            net.minecraft.server.v1_4_R1.Block nmsBlock = i < 4096 ? net.minecraft.server.v1_4_R1.Block.byId[i] : null;
+            net.minecraft.server.v1_5_R2.Block nmsBlock = i < 4096 ? net.minecraft.server.v1_5_R2.Block.byId[i] : null;
             org.bukkit.Material bukkitMaterial = org.bukkit.Material.getMaterial(i);
 
             if (nmsItem == null && nmsBlock == null && bukkitMaterial == null) continue; // must not exist
@@ -176,14 +176,14 @@ public class SamplePlugin extends JavaPlugin {
 
 
         // test un-renamed map
-        System.out.println("net.minecraft.server.v1_4_R1.MinecraftServer.currentTick = "+MinecraftServer.currentTick);
+        System.out.println("net.minecraft.server.v1_5_R2.MinecraftServer.currentTick = "+MinecraftServer.currentTick);
 
         // test bouncycastle is available
-        System.out.println("bouncycastle="+net.minecraft.v1_4_R1.org.bouncycastle.asn1.bc.BCObjectIdentifiers.class);
+        System.out.println("bouncycastle="+net.minecraft.v1_5_R2.org.bouncycastle.asn1.bc.BCObjectIdentifiers.class);
 
 
 
-        System.out.println("SNOW.id="+net.minecraft.server.v1_4_R1.Block.SNOW.id);
+        System.out.println("SNOW.id="+net.minecraft.server.v1_5_R2.Block.SNOW.id);
 
    
         // test tasks
@@ -198,7 +198,7 @@ public class SamplePlugin extends JavaPlugin {
         }, 0);
 
         // test nms inheritance remapping
-        net.minecraft.server.v1_4_R1.WorldServer worldServer = ((CraftWorld)Bukkit.getServer().getWorlds().get(0)).getHandle();
+        net.minecraft.server.v1_5_R2.WorldServer worldServer = ((CraftWorld)Bukkit.getServer().getWorlds().get(0)).getHandle();
         System.out.println("calling getTileEntity on nms World");
         // if this breaks - Caused by: java.lang.NoSuchMethodError: in.getTileEntity(III)Lany;
         // because WorldServer inherits from World, but isn't in mc-dev to obf mappings (since is added by CB)

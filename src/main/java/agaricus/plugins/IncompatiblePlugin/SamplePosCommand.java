@@ -6,7 +6,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_4_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 import org.bukkit.entity.Player;
 
 /**
@@ -25,7 +25,7 @@ public class SamplePosCommand implements CommandExecutor {
         player.sendMessage("getting CraftWorld");
         CraftWorld craftWorld = (CraftWorld)world;
         player.sendMessage("getting handle");
-        net.minecraft.server.v1_4_R1.WorldServer worldServer = craftWorld.getHandle();
+        net.minecraft.server.v1_5_R2.WorldServer worldServer = craftWorld.getHandle();
         player.sendMessage("calling getTileEntity on nms World");
         // this breaks - Caused by: java.lang.NoSuchMethodError: in.getTileEntity(III)Lany;
         // because WorldServer inherits from World, but isn't in mc-dev to obf mappings (since is added by CB)

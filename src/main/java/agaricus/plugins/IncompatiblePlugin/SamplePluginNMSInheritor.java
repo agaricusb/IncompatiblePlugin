@@ -1,7 +1,7 @@
 package agaricus.plugins.IncompatiblePlugin;
 
-import net.minecraft.server.v1_4_R1.*;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftHumanEntity;
+import net.minecraft.server.v1_5_R2.*;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftHumanEntity;
 
 /**
  * A class in a plugin extending an NMS interface, for inheritance testing
@@ -9,7 +9,7 @@ import org.bukkit.craftbukkit.v1_4_R1.entity.CraftHumanEntity;
 public class SamplePluginNMSInheritor implements
         IInventory  // obf la
 {
-    public int getSize() // MCP getSizeInventory, obf k_
+    public int getSize() // MCP getSizeInventory, obf j_
     {
         return 0;
     }
@@ -24,7 +24,7 @@ public class SamplePluginNMSInheritor implements
         return null;
     }
 
-    public ItemStack splitWithoutUpdate(int i) // MCP getStackInSlotOnClosing, obf a_
+    public ItemStack splitWithoutUpdate(int i) // MCP getStackInSlotOnClosing, obf b
     {
         return null;
     }
@@ -41,30 +41,40 @@ public class SamplePluginNMSInheritor implements
         return "";
     }
 
+    public boolean c() // MCP isInvNameLocalized, obf c
+    {
+        return true;
+    }
+
     public int getMaxStackSize() // MCP getInventoryStackLimit, a_
     {
         return 0;
     }
 
-    public void update() // MCP onInventoryChanged, obf d
+    public void update() // MCP onInventoryChanged, obf k_
     {
         return;
     }
 
-    public boolean a_ // MCP isUseableByPlayer, obf a_
+    public boolean a // MCP isUseableByPlayer, obf a
             (EntityHuman entityhuman) // MCP EntityPlayer, obf qx
     {
         return false;
     }
 
-    public void startOpen() // MCP openChest, obf l_
+    public void startOpen() // MCP openChest, obf f
     {
         return;
     }
 
-    public void f() // MCP closeChest, obf f
+    public void g() // MCP closeChest, obf g
     {
         return;
+    }
+
+    public boolean b(int i, ItemStack itemStack) // MCP isStackValidForSlot, obf b
+    {
+        return true;
     }
 
     // CraftBukkit start
