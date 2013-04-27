@@ -102,7 +102,7 @@ public class SamplePlugin extends JavaPlugin {
 
         // reflection remapping https://github.com/MinecraftPortCentral/MCPC-Plus/issues/13
         try {
-            Field field = TileEntityMobSpawner.class.getDeclaredField("mobName");
+            Field field = TileEntityChest.class.getDeclaredField("items"); // MCP csv chestContents, srg field_70428_i, obf i
             System.out.println("field="+field);
         } catch (Exception ex) {
             ex.printStackTrace();
