@@ -96,8 +96,8 @@ public class SamplePlugin extends JavaPlugin {
 
         // recipe sorting error - java.lang.IllegalArgumentException: Comparison method violates its general contract!
         // https://github.com/MinecraftPortCentral/MCPC-Plus/issues/238
-        ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new org.bukkit.inventory.ItemStack(Material.DIAMOND));
-        shapelessRecipe.addIngredient(Material.DIRT);
+        ShapelessRecipe shapelessRecipe = new ShapelessRecipe(new org.bukkit.inventory.ItemStack(Material.DIRT));
+        shapelessRecipe.addIngredient(Material.GRASS);
         org.bukkit.Bukkit.addRecipe(shapelessRecipe);
 
         // reflection remapping https://github.com/MinecraftPortCentral/MCPC-Plus/issues/13
