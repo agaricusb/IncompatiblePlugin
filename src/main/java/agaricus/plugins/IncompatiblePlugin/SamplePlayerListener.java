@@ -22,7 +22,7 @@ public class SamplePlayerListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        plugin.getLogger().info("entity death event: " + event + " entity="+event.getEntity() + ", drops="+event.getDrops());
+        //plugin.getLogger().info("entity death event: " + event + " entity="+event.getEntity() + ", drops="+event.getDrops());
     }
 
     @EventHandler
