@@ -60,6 +60,14 @@ public class SamplePlugin extends JavaPlugin {
 
         System.out.println("IncompatiblePlugin");
 
+        System.out.println("static MinecraftServer="+ net.minecraft.server.v1_5_R2.MinecraftServer.class);
+        try {
+            System.out.println("reflect MinecraftServer=" + Class.forName("net.minecraft.server.v1_5_R2.MinecraftServer"));
+        } catch (ClassNotFoundException ex) {
+            System.out.println("reflect MinecraftServer=" + ex);
+            ex.printStackTrace();
+        }
+
         // show enums for https://github.com/MinecraftPortCentral/MCPC-Plus/issues/417
         StringBuffer sb = new StringBuffer();
         for (Biome biome : Biome.values()) {
