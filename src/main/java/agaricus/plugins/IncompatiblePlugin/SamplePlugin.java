@@ -85,7 +85,7 @@ public class SamplePlugin extends JavaPlugin {
 
         sb = new StringBuffer();
         for (EntityType entityType : EntityType.values()) {
-            sb.append(entityType.ordinal()+"="+entityType.toString()+"("+entityType.name()+") ");
+            sb.append(entityType.ordinal()+"/"+entityType.getTypeId()+"="+entityType.toString()+"("+entityType.name()+"/"+entityType.getEntityClass()+") ");
         }
         System.out.println("EntityType ("+EntityType.values().length+"): " + sb.toString());
 
