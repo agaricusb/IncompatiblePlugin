@@ -3,6 +3,7 @@ package agaricus.plugins.IncompatiblePlugin;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,6 +36,10 @@ public class SamplePosCommand implements CommandExecutor {
         if (split.length == 0) {
             player.sendMessage("You are currently at " + location.getX() +"," + location.getY() + "," + location.getZ() +
                     " with " + location.getYaw() + " yaw and " + location.getPitch() + " pitch");
+            return true;
+        } else if (split.length == 1) {
+            Block block = location.getBlock();
+            player.sendMessage("Block="+block+" isEmpty? "+(block != null && block.isEmpty()));
             return true;
         } else if (split.length == 3) {
             try {
