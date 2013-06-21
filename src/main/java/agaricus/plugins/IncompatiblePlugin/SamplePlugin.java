@@ -27,7 +27,6 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import sun.misc.IOUtils;
 
 import java.io.*;
 import java.util.Map;
@@ -60,15 +59,15 @@ public class SamplePlugin extends JavaPlugin {
 
         System.out.println("IncompatiblePlugin");
 
-        for (int id = 0; id < net.minecraft.server.v1_5_R2.Block.byId.length; id++) {
-            if (net.minecraft.server.v1_5_R2.Block.byId[id] == null) continue;
-            if (net.minecraft.server.v1_5_R2.Item.byId[id] == null) {
-                System.out.println("block "+id+" has null item: "+ net.minecraft.server.v1_5_R2.Block.byId[id]);
+        for (int id = 0; id < net.minecraft.server.v1_5_R3.Block.byId.length; id++) {
+            if (net.minecraft.server.v1_5_R3.Block.byId[id] == null) continue;
+            if (net.minecraft.server.v1_5_R3.Item.byId[id] == null) {
+                System.out.println("block "+id+" has null item: "+ net.minecraft.server.v1_5_R3.Block.byId[id]);
             }
         }
 
 
-        System.out.println("static MinecraftServer="+ net.minecraft.server.v1_5_R2.MinecraftServer.class);
+        System.out.println("static MinecraftServer="+ net.minecraft.server.v1_5_R3.MinecraftServer.class);
         try {
             System.out.println("reflect MinecraftServer=" + Class.forName("net.minecraft.server.v1_5_R2.MinecraftServer"));
         } catch (ClassNotFoundException ex) {
